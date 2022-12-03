@@ -141,9 +141,43 @@ public class f {
         group.remove(group.size()-1);
     }
 
-//    public int pathSum(TreeNode root, int sum) {
-//
-//    }
+    //T437路径总和三 传递值时没能递增 数据溢出
+    public static int pathSum11(TreeNode root, int targetSum) {
+        if (root==null) return 0;
+        Queue<TreeNode> treeNodes = new LinkedList<>();
+        treeNodes.add(root);
+        while (treeNodes.size()!=0){
+            int size = treeNodes.size();
+            for (int i = 0; i <size ; i++) {
+                TreeNode node = treeNodes.poll();
+                if (node.val==targetSum){
+                    num++;
+                }
+                if (node.left!=null){
+                    wrre(node.left,targetSum,node.val);
+                    treeNodes.offer(node.left);
+                }
+                if (node.right!=null){
+                    wrre(node.right,targetSum,node.val);
+                    treeNodes.offer(node.right);
+                }
+            }
+        }
+        return num;
+    }
+    public static void wrre(TreeNode root,int targetSum,long val) {
+        if (val+root.val == targetSum){
+            num++;
+        }
+
+        if (root.left!=null) {
+            wrre(root.left,targetSum, root.val+val);
+        }
+
+        if (root.right!=null){
+            wrre(root.right,targetSum,root.val+val);
+        }
+    }
 }
 
  class TreeNode {
